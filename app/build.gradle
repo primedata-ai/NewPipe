@@ -140,17 +140,16 @@ task runKtlint(type: JavaExec) {
     classpath = configurations.ktlint
     args "src/**/*.kt"
 }
-
-task formatKtlint(type: JavaExec) {
-    inputs.files(inputFiles)
-    outputs.dir(outputDir)
-    main = "com.pinterest.ktlint.Main"
-    classpath = configurations.ktlint
-    args "-F", "src/**/*.kt"
-}
+//
+//task formatKtlint(type: JavaExec) {
+//    inputs.files(inputFiles)
+//    outputs.dir(outputDir)
+//    main = "com.pinterest.ktlint.Main"
+//    classpath = configurations.ktlint
+//    args "-F", "src/**/*.kt"
+//}
 
 afterEvaluate {
-    preDebugBuild.dependsOn formatKtlint, runCheckstyle, runKtlint
 }
 
 dependencies {
@@ -170,6 +169,7 @@ dependencies {
     debugImplementation "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}"
     implementation "com.squareup.leakcanary:leakcanary-object-watcher-android:${leakCanaryVersion}"
     implementation "com.squareup.leakcanary:plumber-android:${leakCanaryVersion}"
+    implementation project(path: ':analytics')
 
     implementation "androidx.multidex:multidex:2.0.1"
 

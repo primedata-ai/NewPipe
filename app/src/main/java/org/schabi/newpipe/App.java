@@ -15,6 +15,7 @@ import androidx.preference.PreferenceManager;
 import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.segment.analytics.Analytics;
 
 import org.acra.ACRA;
 import org.acra.config.ACRAConfigurationException;
@@ -67,7 +68,8 @@ import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 public class App extends MultiDexApplication {
     protected static final String TAG = App.class.toString();
     private static App app;
-
+    private static final String WRITE_KEY = "1laW3BbmOxjG9fL3xbzlhPGNHxq";
+    private static final String SOURCE_KEY = "ADR-1laW3CoG7CQcmo6ZRcjCdYxzKyT";
     @Nullable private Disposable disposable = null;
 
     @NonNull
@@ -107,6 +109,17 @@ public class App extends MultiDexApplication {
 
         // Check for new version
         disposable = CheckForNewAppVersion.checkNewVersion(this);
+
+        // Initialize a new instance of the Analytics client.
+        Analytics.Builder builder =
+                new Analytics.Builder(this, WRITE_KEY, SOURCE_KEY)
+                        .experimentalNanosecondTimestamps()
+                        .trackApplicationLifecycleEvents()
+                        .flushQueueSize(1)
+                        .recordScreenViews();
+
+        // Set the initialized instance as a globally accessible instance.
+        Analytics.setSingletonInstance(builder.build());
     }
 
     @Override

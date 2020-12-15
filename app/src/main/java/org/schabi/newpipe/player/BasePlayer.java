@@ -53,6 +53,8 @@ import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.segment.analytics.Analytics;
+import com.segment.analytics.Options;
 
 import org.schabi.newpipe.DownloaderImpl;
 import org.schabi.newpipe.MainActivity;
@@ -73,6 +75,7 @@ import org.schabi.newpipe.player.playqueue.PlayQueueAdapter;
 import org.schabi.newpipe.player.playqueue.PlayQueueItem;
 import org.schabi.newpipe.player.resolver.MediaSourceTag;
 import org.schabi.newpipe.util.ImageDisplayConstants;
+import org.schabi.newpipe.util.MetadataTracking;
 import org.schabi.newpipe.util.SerializedCache;
 
 import java.io.IOException;
@@ -513,7 +516,7 @@ public abstract class BasePlayer implements
                     + "imageUri = [" + imageUri + "], view = [" + view + "], "
                     + "loadedImage = [" + loadedImage + "], "
                     + loadedImage.getWidth() + "x" + loadedImage.getHeight()
-            + ", scaled width = " + width);
+                    + ", scaled width = " + width);
         }
     }
 
@@ -1144,6 +1147,10 @@ public abstract class BasePlayer implements
         }
 
         simpleExoPlayer.setPlayWhenReady(true);
+        MediaSourceTag tag = this.getCurrentMetadata();
+        if (tag != null) {
+            Analytics.with(null).track(MetadataTracking.PLAY, null, new Options(MetadataTracking.getMetadataTrack(tag), null));
+        }
         savePlaybackState();
     }
 
@@ -1158,6 +1165,11 @@ public abstract class BasePlayer implements
         audioReactor.abandonAudioFocus();
         simpleExoPlayer.setPlayWhenReady(false);
         savePlaybackState();
+
+        MediaSourceTag tag = this.getCurrentMetadata();
+        if (tag != null) {
+            Analytics.with(null).track(MetadataTracking.PAUSE, null, new Options(MetadataTracking.getMetadataTrack(tag), null));
+        }
     }
 
     public void onPlayPause() {
@@ -1227,6 +1239,11 @@ public abstract class BasePlayer implements
 
         savePlaybackState();
         playQueue.offsetIndex(+1);
+
+        MediaSourceTag tag = this.getCurrentMetadata();
+        if (tag != null) {
+            Analytics.with(null).track(MetadataTracking.PLAY_NEXT, null, new Options(MetadataTracking.getMetadataTrack(tag), null));
+        }
     }
 
     public void onSelected(final PlayQueueItem item) {
@@ -1261,6 +1278,10 @@ public abstract class BasePlayer implements
             }
 
             simpleExoPlayer.seekTo(normalizedPositionMillis);
+        }
+        MediaSourceTag tag = this.getCurrentMetadata();
+        if (tag != null) {
+            Analytics.with(null).track(MetadataTracking.SEEK, null, new Options(MetadataTracking.getMetadataTrack(tag), null));
         }
     }
 

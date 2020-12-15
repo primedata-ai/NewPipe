@@ -1,17 +1,20 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.10'
+    ext.kotlin_version = '1.4.0'
     repositories {
         jcenter()
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath 'com.vanniktech:gradle-android-junit-jacoco-plugin:0.16.0'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.29.0'
+        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:1.0.2'
     }
 }
 
@@ -22,4 +25,29 @@ allprojects {
         maven { url "https://jitpack.io" }
         maven { url "https://clojars.org/repo" }
     }
+
+    group = GROUP
+    version = VERSION_NAME
 }
+
+def isCI = "true".equals(System.getenv("CIRCLECI"))
+def preDexEnabled = "true".equals(System.getProperty("preDex", "true"))
+
+ext {
+    versionCode = Integer.parseInt(VERSION_CODE)
+    versionName = VERSION_NAME
+
+    minSdkVersion = 14
+    minSdkVersionWear = 23
+    targetSdkVersion = 29
+    compileSdkVersion = 29
+
+    sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+    targetCompatibilityVersion = JavaVersion.VERSION_1_8
+
+    preDexLibraries = preDexEnabled && !isCI
+}
+
+ext.deps = [
+        supportAnnotations: 'androidx.annotation:annotation:1.1.0'
+]
