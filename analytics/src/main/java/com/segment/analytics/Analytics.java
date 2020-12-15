@@ -23,15 +23,6 @@
  */
 package com.segment.analytics;
 
-import static com.segment.analytics.internal.Utils.assertNotNull;
-import static com.segment.analytics.internal.Utils.buffer;
-import static com.segment.analytics.internal.Utils.closeQuietly;
-import static com.segment.analytics.internal.Utils.getResourceString;
-import static com.segment.analytics.internal.Utils.getSegmentSharedPreferences;
-import static com.segment.analytics.internal.Utils.hasPermission;
-import static com.segment.analytics.internal.Utils.immutableCopyOf;
-import static com.segment.analytics.internal.Utils.isNullOrEmpty;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -80,6 +71,15 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static com.segment.analytics.internal.Utils.assertNotNull;
+import static com.segment.analytics.internal.Utils.buffer;
+import static com.segment.analytics.internal.Utils.closeQuietly;
+import static com.segment.analytics.internal.Utils.getResourceString;
+import static com.segment.analytics.internal.Utils.getSegmentSharedPreferences;
+import static com.segment.analytics.internal.Utils.hasPermission;
+import static com.segment.analytics.internal.Utils.immutableCopyOf;
+import static com.segment.analytics.internal.Utils.isNullOrEmpty;
+
 /**
  * The entry point into the Segment for Android SDK.
  *
@@ -94,7 +94,7 @@ import java.util.concurrent.TimeUnit;
  * new tools.
  *
  * <p>This class is the main entry point into the client API. Use {@link
- * #with(android.content.Context)} for the global singleton instance or construct your own instance
+ * #with(Context)} for the global singleton instance or construct your own instance
  * with {@link Builder}.
  *
  * @see <a href="https://Segment/">Segment</a>
@@ -465,6 +465,8 @@ public class Analytics {
                         if (!isNullOrEmpty(newTraits)) {
                             traits.putAll(newTraits);
                         }
+                        traits.put(AnalyticsContext.Device.DEVICE_ID_KEY, analyticsContext.get(AnalyticsContext.Device.DEVICE_ID_KEY));
+                        traits.put("id", userId);
                         traitsCache.set(traits); // Save the new traits
 
                         IdentifyPayload.Builder builder =
@@ -1089,7 +1091,7 @@ public class Analytics {
         private final String writeKey;
         private final String sourceKey;
         private String host = "https://powehi.primedata.ai";
-//        private String host = "https://ddc6dc420a543119637c09511cb7bcac.m.pipedream.net";
+        //        private String host = "https://ddc6dc420a543119637c09511cb7bcac.m.pipedream.net";
         private boolean collectDeviceID = Utils.DEFAULT_COLLECT_DEVICE_ID;
         private int flushQueueSize = Utils.DEFAULT_FLUSH_QUEUE_SIZE;
         private long flushIntervalInMillis = Utils.DEFAULT_FLUSH_INTERVAL;

@@ -23,21 +23,6 @@
  */
 package com.segment.analytics;
 
-import static android.Manifest.permission.ACCESS_NETWORK_STATE;
-import static android.content.Context.CONNECTIVITY_SERVICE;
-import static android.content.Context.TELEPHONY_SERVICE;
-import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
-import static android.net.ConnectivityManager.TYPE_MOBILE;
-import static android.net.ConnectivityManager.TYPE_WIFI;
-import static com.segment.analytics.internal.Utils.NullableConcurrentHashMap;
-import static com.segment.analytics.internal.Utils.createMap;
-import static com.segment.analytics.internal.Utils.getDeviceId;
-import static com.segment.analytics.internal.Utils.getSystemService;
-import static com.segment.analytics.internal.Utils.hasPermission;
-import static com.segment.analytics.internal.Utils.isNullOrEmpty;
-import static com.segment.analytics.internal.Utils.isOnClassPath;
-import static java.util.Collections.unmodifiableMap;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -50,7 +35,6 @@ import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.segment.analytics.core.BuildConfig;
 import com.segment.analytics.integrations.Logger;
 import com.segment.analytics.internal.Private;
 
@@ -60,6 +44,18 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
+
+import static android.Manifest.permission.ACCESS_NETWORK_STATE;
+import static android.content.Context.CONNECTIVITY_SERVICE;
+import static android.content.Context.TELEPHONY_SERVICE;
+import static android.net.ConnectivityManager.TYPE_BLUETOOTH;
+import static android.net.ConnectivityManager.TYPE_MOBILE;
+import static com.segment.analytics.internal.Utils.getDeviceId;
+import static com.segment.analytics.internal.Utils.getSystemService;
+import static com.segment.analytics.internal.Utils.hasPermission;
+import static com.segment.analytics.internal.Utils.isNullOrEmpty;
+import static com.segment.analytics.internal.Utils.isOnClassPath;
+import static java.util.Collections.unmodifiableMap;
 
 /**
  * Context is a dictionary of free-form information about the state of the device. Context is
@@ -432,7 +428,7 @@ public class AnalyticsContext extends ValueMap {
     public static class Device extends ValueMap {
 
         @Private
-        static final String DEVICE_ID_KEY = "device_id";
+        public static final String DEVICE_ID_KEY = "device_id";
         @Private
         static final String DEVICE_MANUFACTURER_KEY = "deviceBrand";
         @Private
