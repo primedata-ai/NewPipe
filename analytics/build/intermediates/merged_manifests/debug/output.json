@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "applicationId": "com.segment.analytics.core",
+  "variantType": "LIBRARY",
+  "elements": [
+    {
+      "outputType": {
+        "type": "MERGED_MANIFESTS"
+      },
+      "apkData": {
+        "type": "MAIN",
+        "splits": [],
+        "versionCode": 490,
+        "versionName": "4.9.0",
+        "outputFile": "analytics-debug.aar",
+        "fullName": "debug",
+        "baseName": "debug",
+        "dirName": ""
+      },
+      "path": "../../library_manifest/debug/AndroidManifest.xml",
+      "properties": {
+        "packageId": "com.segment.analytics.core",
+        "split": ""
+      }
+    }
+  ]
+}
