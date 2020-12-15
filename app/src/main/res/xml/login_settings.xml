@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:key="general_preferences"
+    android:title="@string/settings_category_updates_title">
+
+    <EditTextPreference
+        android:defaultValue="paul.ng@primedata.ai"
+        android:key="@string/login_email"
+        android:summary="Provide email for identify user"
+        android:title="Login by Email" />
+
+</PreferenceScreen>

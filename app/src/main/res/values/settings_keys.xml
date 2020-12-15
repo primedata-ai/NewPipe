@@ -339,6 +339,9 @@
     <string name="update_app_key" translatable="false">update_app_key</string>
     <string name="update_pref_screen_key" translatable="false">update_pref_screen_key</string>
 
+    <!-- Login -->
+    <string name="login_email" translatable="false">login_email</string>
+
     <!-- Localizations   -->
     <string name="default_localization_key" translatable="false">system</string>
     <!-- alternatively, load these from some local android data store -->

@@ -1,5 +1,6 @@
 package org.schabi.newpipe.util;
 
+import com.segment.analytics.Analytics;
 import com.segment.analytics.integrations.BasicItemPayload;
 import com.segment.analytics.internal.Utils;
 

@@ -53,4 +53,11 @@
         android:key="@string/debug_pref_screen_key"
         android:title="@string/settings_category_debug_title"
         app:iconSpaceReserved="false" />
+
+    <PreferenceScreen
+        android:fragment="org.schabi.newpipe.settings.LoginSettingsFragment"
+        android:icon="?attr/ic_people"
+        android:key="@string/debug_pref_screen_key"
+        android:title="Login"
+        app:iconSpaceReserved="false" />
 </PreferenceScreen>
