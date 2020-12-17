@@ -615,6 +615,10 @@ public abstract class BasePlayer implements
         if (!isProgressLoopRunning()) {
             startProgressLoop();
         }
+        MediaSourceTag tag = this.getCurrentMetadata();
+        if (tag != null) {
+            Analytics.with(null).track(MetadataTracking.PLAY, null, new Options(MetadataTracking.getMetadataTrack(tag), null));
+        }
     }
 
     public void onBuffering() {
@@ -1147,10 +1151,6 @@ public abstract class BasePlayer implements
         }
 
         simpleExoPlayer.setPlayWhenReady(true);
-        MediaSourceTag tag = this.getCurrentMetadata();
-        if (tag != null) {
-            Analytics.with(null).track(MetadataTracking.PLAY, null, new Options(MetadataTracking.getMetadataTrack(tag), null));
-        }
         savePlaybackState();
     }
 

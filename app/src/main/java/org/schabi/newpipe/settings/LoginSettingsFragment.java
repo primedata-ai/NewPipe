@@ -6,13 +6,14 @@ import androidx.annotation.Nullable;
 import androidx.preference.Preference;
 
 import com.segment.analytics.Analytics;
+import com.segment.analytics.Traits;
 
 import org.schabi.newpipe.R;
 
 public class LoginSettingsFragment extends BasePreferenceFragment {
     private final Preference.OnPreferenceChangeListener loginPreferenceChange
             = (preference, newValue) -> {
-        Analytics.with(null).identify((String) newValue);
+        Analytics.with(null).identify((String) newValue, new Traits().putEmail((String) newValue), null);
         defaultPreferences.edit()
                 .putString(getString(R.string.login_email), (String) newValue).apply();
         return true;
